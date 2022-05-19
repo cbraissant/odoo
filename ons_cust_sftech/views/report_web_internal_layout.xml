@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="internal_layout" inherit_id="web.internal_layout">
+        <xpath expr="//div[hasclass('header')]/div/div[2]" position="replace">
+            <div class="col-2 offset-2 text-center">
+                <img t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" width="100"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('header')]" position="inside">
+            <hr class="border-dark"/>
+        </xpath>
+    </template>
+</odoo>

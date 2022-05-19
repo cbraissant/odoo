@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="ons_res_partner_form_view">
+        <field name="name">ons_res_partner_form_view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <group>
+                    <field name="property_account_position_id"/>
+                    <field name="property_product_pricelist"/>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="measures" string="Mesures">
+                    <field name="ons_measure_ids">
+                        <tree string="Mesures">
+                            <field name="date"/>
+                            <field name="suit_type"/>
+                            <field name="ref"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

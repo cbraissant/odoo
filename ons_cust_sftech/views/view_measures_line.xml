@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="ons_measure_line_form_view">
+        <field name="name">ons_measure_line_form_view</field>
+        <field name="model">ons.measure.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="type_name"/>
+                    <field name="type_number"/>
+                    <field name="measure_value"/>
+                    <field name="measure_total"/>
+                    <field name="to_check"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

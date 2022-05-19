@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="ons_sale_order_template_view_form">
+        <field name="name">ons_sale_order_template_view_form</field>
+        <field name="model">sale.order.template</field>
+        <field name="inherit_id" ref="sale_management.sale_order_template_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_order_template_line_ids']/tree" position="attributes">
+                <attribute name="editable"/>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_template_line_ids']/form//page[@name='order_description']" position="inside">
+                <field name="ons_detail_ids" widget="section_and_note_one2many">
+                    <tree editable="bottom" limit="100">
+                        <control>
+                            <create name="add_product_control" string="Ajouter un produit"/>
+                            <create name="add_section_control" string="Ajouter une section" context="{'default_display_type': 'line_section'}"/>
+                        </control>
+                        <field name="sequence" widget="handle"/>
+                        <field name="display_type" invisible="1"/>
+                        <field name="name" widget="section_and_note_text" attrs="{'required': [('display_type', '!=', False)]}"/>
+                        <field name="body_part_id" attrs="{'required': [('display_type', '=', False)]}"/>
+                        <field name="body_part_category_ids" invisible="1"/>
+                        <field name="product_id" attrs="{'required': [('display_type', '=', False)]}" domain="[('categ_id', 'in', body_part_category_ids)]"/>
+                        <field name="product_qty"/>
+                        <field name="product_uom_id"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

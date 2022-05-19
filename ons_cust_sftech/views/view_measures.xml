@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="ons_measure_form_view">
+        <field name="name">ons_measure_form_view</field>
+        <field name="model">ons.measure</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="date"/>
+                    <field name="suit_type"/>
+                    <field name="gender"/>
+                    <field name="size"/>
+                    <field name="weight"/>
+                    <field name="shoe_size"/>
+                    <field name="ref"/>
+                    <field name="partner_taking_measure_id"/>
+                    <field name="note"/>
+                </group>
+                <field name="show_button" invisible="1"/>
+                <button name="default_measure_line_ids" type="object" string="Générer les lignes" class="oe_highlight" attrs="{'invisible':[('show_button', '=', False)]}"/>
+
+                <field name="checked_shoulder" invisible="1"/>
+                <field name="checked_torso" invisible="1"/>
+                <t attrs="{'invisible': [('measure_line_ids', '=', [])]}">
+                    <field name="calcul_shoulder" class="alert alert-success w-100" attrs="{'invisible':[('checked_shoulder','=', False)]}" nolabel="1"/>
+                    <field name="calcul_shoulder" class="alert alert-danger w-100" attrs="{'invisible':[('checked_shoulder','=', True)]}" nolabel="1"/>
+                    <field name="calcul_torso" class="alert alert-success w-100" attrs="{'invisible':[('checked_torso','=', False)]}" nolabel="1"/>
+                    <field name="calcul_torso" class="alert alert-danger w-100" attrs="{'invisible':[('checked_torso','=', True)]}" nolabel="1"/>
+                </t>
+
+                <field name="measure_line_ids">
+                    <tree editable="bottom">
+                        <field name="type_number"/>
+                        <field name="type_name"/>
+                        <field name="measure_value"/>
+                        <field name="measure_total"/>
+                        <field name="to_check"/>
+                    </tree>
+                </field>
+
+                <t attrs="{'invisible': [('measure_line_ids', '=', [])]}">
+                    <field name="calcul_shoulder" class="alert alert-success w-100" attrs="{'invisible':[('checked_shoulder','=', False)]}" nolabel="1"/>
+                    <field name="calcul_shoulder" class="alert alert-danger w-100" attrs="{'invisible':[('checked_shoulder','=', True)]}" nolabel="1"/>
+                    <field name="calcul_torso" class="alert alert-success w-100" attrs="{'invisible':[('checked_torso','=', False)]}" nolabel="1"/>
+                    <field name="calcul_torso" class="alert alert-danger w-100" attrs="{'invisible':[('checked_torso','=', True)]}" nolabel="1"/>
+                </t>
+            </form>
+        </field>
+    </record>
+</odoo>

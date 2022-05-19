@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="ons_report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr='//p[@name="incoterm"]' position="after">
+            <t t-if="o.move_type in ['out_invoice', 'entry', 'in_invoice'] and o.partner_bank_id" >
+                <div class="text-muted" style="page-break-inside: avoid; font-size: 1rem;">
+                    <span>Bank Relation:</span>
+                    <br/>
+                    <span t-field="o.partner_bank_id.bank_name" t-options="{'widget': 'text'}" />
+                    <t t-if="o.partner_bank_id.bank_id.street or o.partner_bank_id.bank_id.street2">
+                        &#160;-&#160;
+                        <span t-field="o.partner_bank_id.bank_id.street" t-options="{'widget': 'text'}" />
+                        
+                        <span t-field="o.partner_bank_id.bank_id.street2" t-options="{'widget': 'text'}" />
+                    </t>
+                    <t t-if="o.partner_bank_id.bank_id.zip or o.partner_bank_id.bank_id.city">
+                        &#160;-&#160;
+                        <span t-field="o.partner_bank_id.bank_id.zip" t-options="{'widget': 'text'}" />
+                        <span t-field="o.partner_bank_id.bank_id.city" t-options="{'widget': 'text'}" />
+                    </t>
+                    <t t-if="o.partner_bank_id.bank_id.country.name">
+                        &#160;-&#160;
+                        <span t-field="o.partner_bank_id.bank_id.country.name" t-options="{'widget': 'text'}" />
+                    </t>
+                    <br/>
+                    <span>Swift / BIC:&#160;</span>
+                    <span t-field="o.partner_bank_id.bank_bic" t-options="{'widget': 'text'}" />
+                    <br/>
+                    <span>IBAN / Account n°:&#160;</span>
+                    <span t-field="o.partner_bank_id.acc_number" t-options="{'widget': 'text'}" /> 
+                    <br/>
+                    <span t-field="o.currency_id.name" t-options="{'widget': 'text'}" />
+                </div>
+            </t>
+        </xpath>
+
+        <xpath expr="//thead/tr/th" position="before">
+            <th/>
+        </xpath>
+
+        <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+            <td class="text-center">
+                <img t-if="line.product_id.image_128" t-attf-src="data:image/*;base64,{{line.product_id.image_128}}" style="max-width: 90px; max-height: 90px;"/>
+            </td>
+        </xpath>
+
+        <xpath expr="//tbody[hasclass('invoice_tbody')]//tr" position="after">
+            <t t-set="details_lines" t-value="line.sale_line_ids.ons_detail_ids.sorted('sequence')"/>
+
+            <t t-foreach="details_lines" t-as="detail">
+                <td class="text-center">
+                    <img t-if="detail.product_id.image_128" t-attf-src="data:image/*;base64,{{detail.product_id.image_128}}" style="max-width: 90px; max-height: 90px;"/>
+                </td>
+                <tr t-if="not detail.display_type">
+                    <td class="text-left"><i><span t-field="detail.body_part_id.name"/> : <span t-field="detail.product_id.display_name"/></i></td>
+                    <td class="text-right"><i t-field="detail.product_qty"/> <i t-field="detail.product_uom_id.name"/></td>
+                    <td class="text-right"><i t-field="detail.price_unit"/></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr t-if="not detail.display_type and detail.note">
+                    <td/>
+                    <td colspan="5" class="pl-3"><i t-field="detail.note"/></td>
+                </tr>
+                <tr t-if="detail.display_type == 'line_section'">
+                    <td/>
+                    <td colspan="5"><strong t-field="detail.name"/></td>
+                </tr>
+            </t>
+        </xpath>
+    </template>
+</odoo>

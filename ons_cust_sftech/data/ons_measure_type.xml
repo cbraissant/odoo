@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="ons_measure_type_1" model="ons.measure.type">
+            <field name="name">Tete</field>
+            <field name="number">1</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">0</field>
+            <field name="ease_tnt_pro">0</field>
+        </record>
+        <record id="ons_measure_type_2" model="ons.measure.type">
+            <field name="name">Cou</field>
+            <field name="number">2</field>
+            <field name="ease_neoprene_classic">-5</field>
+            <field name="ease_neoprene_pro">-5</field>
+            <field name="ease_tnt_classic">-5</field>
+            <field name="ease_tnt_pro">-5</field>
+        </record>
+        <record id="ons_measure_type_3" model="ons.measure.type">
+            <field name="name">Poignet</field>
+            <field name="number">3</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">0</field>
+            <field name="ease_tnt_pro">0</field>
+        </record>
+        <record id="ons_measure_type_4" model="ons.measure.type">
+            <field name="name">Carrure</field>
+            <field name="number">4</field>
+            <field name="ease_neoprene_classic">3</field>
+            <field name="ease_neoprene_pro">3</field>
+            <field name="ease_tnt_classic">10</field>
+            <field name="ease_tnt_pro">10</field>
+        </record>
+        <record id="ons_measure_type_5" model="ons.measure.type">
+            <field name="name">Epaules</field>
+            <field name="number">5</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">0</field>
+            <field name="ease_tnt_pro">0</field>
+        </record>
+        <record id="ons_measure_type_6" model="ons.measure.type">
+            <field name="name">Bras-Epaule </field>
+            <field name="number">6</field>
+            <field name="ease_neoprene_classic">-3</field>
+            <field name="ease_neoprene_pro">-3</field>
+            <field name="ease_tnt_classic">1</field>
+            <field name="ease_tnt_pro">1</field>
+        </record>
+        <record id="ons_measure_type_7" model="ons.measure.type">
+            <field name="name">Bras </field>
+            <field name="number">7</field>
+            <field name="ease_neoprene_classic">-3</field>
+            <field name="ease_neoprene_pro">-3</field>
+            <field name="ease_tnt_classic">1</field>
+            <field name="ease_tnt_pro">1</field>
+        </record>
+        <record id="ons_measure_type_8" model="ons.measure.type">
+            <field name="name">Epaule</field>
+            <field name="number">8</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">0</field>
+            <field name="ease_tnt_pro">0</field>
+        </record>
+        <record id="ons_measure_type_9" model="ons.measure.type">
+            <field name="name">H. Avant-bras</field>
+            <field name="number">9</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">0</field>
+            <field name="ease_tnt_pro">0</field>
+        </record>
+        <record id="ons_measure_type_10" model="ons.measure.type">
+            <field name="name">Biceps</field>
+            <field name="number">10</field>
+            <field name="ease_neoprene_classic">4</field>
+            <field name="ease_neoprene_pro">4</field>
+            <field name="ease_tnt_classic">6</field>
+            <field name="ease_tnt_pro">6</field>
+        </record>
+        <record id="ons_measure_type_11" model="ons.measure.type">
+            <field name="name">Avant-bras</field>
+            <field name="number">11</field>
+            <field name="ease_neoprene_classic">4</field>
+            <field name="ease_neoprene_pro">4</field>
+            <field name="ease_tnt_classic">4</field>
+            <field name="ease_tnt_pro">4</field>
+        </record>
+        <record id="ons_measure_type_12" model="ons.measure.type">
+            <field name="name">Poitrine</field>
+            <field name="number">12</field>
+            <field name="ease_neoprene_classic">5</field>
+            <field name="ease_neoprene_pro">5</field>
+            <field name="ease_tnt_classic">16</field>
+            <field name="ease_tnt_pro">16</field>
+        </record>
+        <record id="ons_measure_type_13" model="ons.measure.type">
+            <field name="name">Taille</field>
+            <field name="number">13</field>
+            <field name="ease_neoprene_classic">5</field>
+            <field name="ease_neoprene_pro">5</field>
+            <field name="ease_tnt_classic">14</field>
+            <field name="ease_tnt_pro">14</field>
+        </record>
+        <record id="ons_measure_type_14" model="ons.measure.type">
+            <field name="name">Hanches</field>
+            <field name="number">14</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">10</field>
+            <field name="ease_tnt_pro">10</field>
+        </record>
+        <record id="ons_measure_type_15" model="ons.measure.type">
+            <field name="name">Cuisse</field>
+            <field name="number">15</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">8</field>
+            <field name="ease_tnt_pro">8</field>
+        </record>
+        <record id="ons_measure_type_16" model="ons.measure.type">
+            <field name="name">Mollet</field>
+            <field name="number">16</field>
+            <field name="ease_neoprene_classic">3</field>
+            <field name="ease_neoprene_pro">3</field>
+            <field name="ease_tnt_classic">4</field>
+            <field name="ease_tnt_pro">4</field>
+        </record>
+        <record id="ons_measure_type_17" model="ons.measure.type">
+            <field name="name">Haut Jambes</field>
+            <field name="number">17</field>
+            <field name="ease_neoprene_classic">-2</field>
+            <field name="ease_neoprene_pro">2</field>
+            <field name="ease_tnt_classic">10</field>
+            <field name="ease_tnt_pro">10</field>
+        </record>
+        <record id="ons_measure_type_18" model="ons.measure.type">
+            <field name="name">Haut Mollet</field>
+            <field name="number">18</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">0</field>
+            <field name="ease_tnt_pro">0</field>
+        </record>
+        <record id="ons_measure_type_19" model="ons.measure.type">
+            <field name="name">Haut Corps</field>
+            <field name="number">19</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">0</field>
+            <field name="ease_tnt_pro">0</field>
+        </record>
+        <record id="ons_measure_type_20" model="ons.measure.type">
+            <field name="name">Haut Torse</field>
+            <field name="number">20</field>
+            <field name="ease_neoprene_classic">0</field>
+            <field name="ease_neoprene_pro">0</field>
+            <field name="ease_tnt_classic">0</field>
+            <field name="ease_tnt_pro">0</field>
+        </record>
+
+    </data>
+</odoo>

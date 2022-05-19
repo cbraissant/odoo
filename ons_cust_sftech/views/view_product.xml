@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="ons_product_template_form_view">
+        <field name="name">ons_product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description_sale']" position="before">
+                <field name="ons_is_suit"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Composants" name="componants">
+                    <label for="ons_tag_ids" string="Liste des composants compatibles"/>
+                    <field name="ons_tag_ids">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="image_part" widget="image" class="oe_avatar float-left"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

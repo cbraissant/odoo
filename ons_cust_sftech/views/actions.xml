@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.actions.act_window" id="mrp_production_sale_action_form">
+        <field name="name">Ordre de productions</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="mrp.mrp_production_form_view"/>
+        <field name="res_model">mrp.production</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mrp_production_sale_action_tree">
+        <field name="name">Ordres de productions</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="res_model">mrp.production</field>
+    </record>
+</odoo>

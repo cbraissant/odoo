@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="report_mrporder" inherit_id="mrp.report_mrporder">
+        <xpath expr="//div[@class='row mt32 mb32']" position="replace"/>
+        <xpath expr="//div[@class='row mt32 mb32']" position="replace"/>
+        <xpath expr="//div[hasclass('page')]//div[2]" position="after">
+            <div class="row">
+                <div class="col-6">
+                    <h4>Ordre de production</h4>
+                    <div class="row" t-if="o.origin">
+                        <div class="col-6">
+                            <strong>Document source:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span t-field="o.origin"/>
+                        </div>
+                    </div>
+                    <div class="row" t-if="o.lot_producing_id">
+                        <div class="col-6">
+                            <strong>Numéro de série:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span t-field="o.lot_producing_id.name"/>
+                        </div>
+                    </div>
+                    <div class="row" t-if="o.user_id">
+                        <div class="col-6">
+                            <strong>Responsable:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span t-field="o.user_id"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Produit fini:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span t-field="o.product_id"/>
+                        </div>
+                    </div>
+                    <div class="row" t-if="o.product_description_variants">
+                        <div class="col-6">
+                            <strong>Description:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span t-field="o.product_description_variants"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Quantité à produire:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span t-field="o.product_qty"/>
+                            <span t-field="o.product_uom_id.name" groups="uom.group_uom"/>
+                        </div>
+                    </div>
+                    <div t-if="o.ons_client_id" class="row">
+                        <div class="col-6">
+                            <strong>Client:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span t-field="o.ons_client_id"/>
+                        </div>
+                    </div>
+                    <div t-if="o.ons_note" class="row">
+                        <div class="col-6">
+                            <strong>Commentaire:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span t-field="o.ons_note"/>
+                        </div>
+                    </div>
+                    <div t-if="o.ons_measure_id">
+                        <h4>Combinaison</h4>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Date de la prise de mesure:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.ons_measure_id.date"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Type de combinaison:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.ons_measure_id.suit_type"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Genre:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.ons_measure_id.gender"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Taille:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.ons_measure_id.size"/> cm
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Poids:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.ons_measure_id.weight"/> kg
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Pointure:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.ons_measure_id.shoe_size"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Référence:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.ons_measure_id.ref"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Commentaire:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.ons_measure_id.note"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <img t-att-src="'data:image/png;base64,%s' % to_text(o.ons_preview)" class="w-100"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="(//h3)[2]" position="replace">
+            <h3 class="mt-3">Composants</h3>
+        </xpath>
+        <xpath expr="(//table)[2]//tr//th" position="before">
+            <th>Article</th>
+        </xpath>
+        <xpath expr="(//table)[2]//tr//td" position="before">
+            <td>
+                <span t-field="raw_line.ons_body_part_id.name"/>
+            </td>
+        </xpath>
+        <xpath expr="(//table)[2]//thead//tr" position="inside">
+            <th>Commentaire</th>
+        </xpath>
+        <xpath expr="(//table)[2]//tbody//tr" position="inside">
+            <td>
+                <span t-field="raw_line.ons_note"/>
+            </td>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]" position="inside">
+            <t t-set="to_check" t-value="False"/>
+            <p style="page-break-before:always;"> </p>
+            <h2>Mesures</h2>
+            <table class="table table-sm">
+                <tr>
+                    <th>N°</th>
+                    <th>Emplacement</th>
+                    <th>Mesure [cm]</th>
+                    <th>Total [cm]</th>
+                    <th>À vérifier</th>
+                </tr>
+                <tr t-foreach="o.ons_measure_id.measure_line_ids" t-as="line">
+                    <td><span t-field="line.type_number"/></td>
+                    <td><span t-field="line.type_name"/></td>
+                    <td><span t-field="line.measure_value"/></td>
+                    <td><span t-field="line.measure_total"/></td>
+                    <td><span t-if="line.to_check">X<t t-set="to_check" t-value="True"/></span></td>
+                </tr>
+            </table>
+            <div t-if="to_check" class="alert alert-warning">Attention : il y a des mesures à vérifier.</div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="ons_sale_order_form_view">
+        <field name="name">ons_sale_order_form_view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="ons_reset" type="object" string="Reset" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'sale')]}"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="ons_action_view_mrp_production" type="object" class="oe_stat_button" icon="fa-wrench" attrs="{'invisible': [('ons_mrp_production_count', '=', 0)]}">
+                    <field name="ons_mrp_production_count" widget="statinfo" string="Ordres de production"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_template_id']" position="after">
+                <button name="onchange_sale_order_template_id" type="object" string="Actualiser" class="oe_highlight" icon="fa-refresh"/>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="ons_bexio_id" invisible="1"/>
+                <field name="ons_bexio_date" attrs="{'invisible':[('ons_bexio_id', '=', 0)]}"/>
+            </xpath>
+            <xpath expr="//group[@name='partner_details']" position="inside">
+                <field name="client_order_ref"/>
+                <field name="ons_bexio_title"/>
+                <field name="ons_bexio_name"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="editable"/>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_template_id']" position="attributes">
+                <!-- to revert sale_product_configurator/views/sale_views.xml -->
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//label[@for='name']" position="before">
+                <group>
+                    <field name="ons_client_id" attrs="{'required': [('display_type', '=', False), ('ons_detail_ids', '!=', [])], 'invisible': [('display_type', '!=', False)]}"/>
+                </group>
+                <group>
+                    <field name="ons_measure_ids" invisible="1"/>
+                    <field name="ons_measure_id" domain="[('id', 'in', ons_measure_ids)]" attrs="{'required': [('display_type', '=', False), ('ons_detail_ids', '!=', [])], 'invisible': [('display_type', '!=', False)]}"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="before">
+                <field
+                    name="product_template_id"
+                    string="Product" attrs="{
+                        'readonly': [('product_updatable', '=', False)],
+                        'required': [('display_type', '=', False)],
+                    }"
+                    options="{'no_open': True}"
+                    context="{
+                        'partner_id': parent.partner_id,
+                        'quantity': product_uom_qty,
+                        'pricelist': parent.pricelist_id,
+                        'uom':product_uom,
+                        'company_id': parent.company_id,
+                        'default_list_price': price_unit,
+                        'default_description_sale': name
+                    }"
+                    domain="[
+                        ('sale_ok', '=', True),
+                        '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)
+                    ]"
+                    widget="product_configurator"
+                />
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='product_id']" position="attributes">
+                <attribute name="widget">product_configurator</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='name']" position="after">
+                <label for="ons_detail_ids" attrs="{'invisible': [('display_type', '!=', False)]}"/>
+                <field name="ons_detail_ids" widget="section_and_note_one2many" attrs="{'invisible': [('display_type', '!=', False)]}">
+                    <tree editable="bottom" limit="100">
+                        <control>
+                            <create name="add_product_control" string="Ajouter un produit"/>
+                            <create name="add_section_control" string="Ajouter une section" context="{'default_display_type': 'line_section'}"/>
+                        </control>
+                        <field name="sequence" widget="handle"/>
+                        <field name="display_type" invisible="1"/>
+                        <field name="name" widget="section_and_note_text" attrs="{'required': [('display_type', '!=', False)]}"/>
+                        <field name="body_part_id" attrs="{'required': [('display_type', '=', False)]}"/>
+                        <field name="body_part_category_ids" invisible="1"/>
+                        <field name="partner_id" invisible="1"/>
+                        <field name="pricelist_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                        <!-- Commented because not paid by client, must be fixed before re-activated -->
+                        <!-- <field
+                            name="product_template_id"
+                            string="Product" attrs="{
+                                'required': [('display_type', '=', False)],
+                            }"
+                            options="{'no_open': True}"
+                            context="{
+                                'partner_id': partner_id,
+                                'quantity': product_qty,
+                                'pricelist': pricelist_id,
+                                'uom':product_uom_id,
+                                'company_id': company_id,
+                                'default_list_price': price_unit,
+                                'default_description_sale': name
+                            }"
+                            domain="[
+                                ('sale_ok', '=', True),
+                                '|', ('company_id', '=', False), ('company_id', '=', company_id)
+                            ]"
+                            widget="product_configurator"
+                        /> -->
+                        <field
+                            name="product_id"
+                            attrs="{'required': [('display_type', '=', False)]}"
+                            domain="[('categ_id', 'in', body_part_category_ids)]"
+                            optional=""
+                        />
+                        <field name="product_qty"/>
+                        <field name="product_uom_id"/>
+                        <field name="price_unit"/>
+                        <field name="price_subtotal"/>
+                        <field name="note" optional="show"/>
+                    </tree>
+                </field>
+                <label for="ons_note" attrs="{'invisible': [('display_type', '!=', False)]}"/>
+                <field name="ons_note" attrs="{'invisible': [('display_type', '!=', False)]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="replace"/>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="replace"/>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="before">
+                <field name="price_subtotal" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="after">
+                <field name="price_unit" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="replace"/>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="replace"/>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="before">
+                <field name="price_subtotal" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="after">
+                <field name="price_unit" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ons_sale_order_tree_view_quotation">
+        <field name="name">ons_sale_order_tree_view_quotation</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='create_date']" position="after">
+                <field name="ons_bexio_date" optional="hide"/>
+                <field name="ons_bexio_name"/>
+                <field name="client_order_ref"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="ons_picking_state"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ons_sale_order_tree_view_order">
+        <field name="name">ons_sale_order_tree_view_order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="ons_bexio_date" optional="hide"/>
+                <field name="ons_bexio_name"/>
+                <field name="client_order_ref"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ons_sale_order_filter_view">
+        <field name="name">ons_sale_order_filter_view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="client_order_ref"/>
+                <field name="ons_bexio_name"/>
+                <field name="ons_bexio_title"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
